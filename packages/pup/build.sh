@@ -10,16 +10,19 @@ TERMUX_PKG_SHA256=0d546ab78588e07e1601007772d83795495aa329b19bd1c3cde589ddb1c538
 termux_step_make() {
 	termux_setup_golang
 
-	cd "$TERMUX_PKG_SRCDIR"
+	cd $TERMUX_PKG_SRCDIR
 
 	export GOPATH="${TERMUX_PKG_BUILDDIR}"
 	mkdir -p "${GOPATH}/src/github.com/ericchiang/"
 	cp -a "${TERMUX_PKG_SRCDIR}" "${GOPATH}/src/github.com/ericchiang/pup"
 	cd "${GOPATH}/src/github.com/ericchiang/pup"
+	go mod init
 	go get -d -v
+	go mod vendor
 	go build
 }
 
 termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/ericchiang/pup/pup
+	install -Dm700 -t "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/bin \
+		"$GOPATH"/src/github.com/ericchiang/pup/pup
 }
