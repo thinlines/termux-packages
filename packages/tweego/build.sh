@@ -21,6 +21,6 @@ termux_step_make() {
 
 termux_step_make_install() {
 	install -Dm700 \
-		"$GOPATH"/src/bitbucket.org/tmedwards/tweego/tweego \
-		"$TERMUX_PREFIX"/bin/
+		"$GOPATH"/src/github.com/tmedwards/tweego/tweego \
+		"$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/bin/
 }
